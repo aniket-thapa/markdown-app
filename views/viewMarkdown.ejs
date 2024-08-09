@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      <% if(filename){ %> <%- filename %> <% } else if (filename == ""){ %>
+      "Filename Not Found" <% } %>
+    </title>
+    <script
+      src="https://kit.fontawesome.com/9ca9aa7819.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Base styles for light mode */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background-color: #f4f4f4;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      /* GitHub-like Markdown styles */
+      .markdown-content {
+        line-height: 1.6;
+      }
+
+      .markdown-content h1,
+      .markdown-content h2,
+      .markdown-content h3,
+      .markdown-content h4,
+      .markdown-content h5,
+      .markdown-content h6 {
+        border-bottom: 1px solid #e1e4e8;
+        padding-bottom: 0.3em;
+        margin-bottom: 0.6em;
+        font-weight: 600;
+      }
+
+      .markdown-content code {
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        font-size: 85%;
+      }
+
+      .markdown-content pre code {
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        padding: 1em;
+        display: block;
+        overflow-x: auto;
+      }
+
+      .markdown-content blockquote {
+        border-left: 4px solid #dfe2e5;
+        margin: 0;
+        padding: 0.5em 1em;
+        color: #6a737d;
+      }
+
+      .markdown-content ul,
+      .markdown-content ol {
+        margin: 0;
+        padding-left: 1.5em;
+      }
+
+      .markdown-content li {
+        margin-bottom: 0.5em;
+      }
+
+      .markdown-content table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1em;
+      }
+
+      .markdown-content th,
+      .markdown-content td {
+        border: 1px solid #dfe2e5;
+        padding: 0.6em 1em;
+      }
+
+      .markdown-content th {
+        background-color: #f6f8fa;
+        font-weight: 600;
+      }
+
+      .markdown-content img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Link styles */
+      .markdown-content a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+
+      .markdown-content a:hover {
+        text-decoration: underline;
+      }
+
+      .markdown-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      /* Dark mode styles */
+      body.dark-mode {
+        color: #f4f4f4;
+        background-color: #333;
+      }
+
+      body.dark-mode .container {
+        background: #444;
+      }
+      body.dark-mode .container th {
+        background: #3d3d3d;
+      }
+
+      body.dark-mode .markdown-content {
+        color: #f4f4f4;
+      }
+
+      body.dark-mode .markdown-content h1,
+      body.dark-mode .markdown-content h2,
+      body.dark-mode .markdown-content h3,
+      body.dark-mode .markdown-content h4,
+      body.dark-mode .markdown-content h5,
+      body.dark-mode .markdown-content h6 {
+        border-bottom: 1px solid #555;
+      }
+
+      body.dark-mode .markdown-content code,
+      body.dark-mode .markdown-content pre code {
+        background-color: #2d2d2d;
+        color: #f8f8f2;
+      }
+
+      body.dark-mode .markdown-content blockquote {
+        border-left: 4px solid #555;
+        color: #aaa;
+      }
+
+      body.dark-mode .markdown-content table {
+        border-color: #555;
+      }
+
+      body.dark-mode .markdown-content th,
+      body.dark-mode .markdown-content td {
+        border-color: #555;
+      }
+
+      /* Dark mode link styles */
+      body.dark-mode .markdown-content a {
+        color: #58a6ff;
+      }
+
+      body.dark-mode .markdown-content a:hover {
+        text-decoration: underline;
+      }
+
+      /* Dark mode theme switch button */
+      .toggle-theme {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      /* Hidden navigation menu */
+      .hidden-toc {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="toggle-theme" onclick="toggleTheme()">
+        <i class="fa-regular fa-sun"></i> / <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="markdown-content"><%- content %></div>
+    </div>
+
+    <script src="/scripts/themeSwitcher.js"></script>
+    <script>
+      // Function to generate IDs for headers
+      function generateHeaderIds() {
+        const headers = document.querySelectorAll(
+          ".markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4, .markdown-content h5, .markdown-content h6"
+        );
+        headers.forEach((header) => {
+          if (!header.id) {
+            // Only add ID if it doesn't already exist
+            const id = header.textContent
+              .trim()
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-");
+            header.id = id;
+          }
+        });
+      }
+
+      // Function to create hidden navigation links for headers
+      function addLinksToTOC() {
+        const toc = document.getElementById("toc");
+        const headers = document.querySelectorAll(
+          ".markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4, .markdown-content h5, .markdown-content h6"
+        );
+        headers.forEach((header) => {
+          if (header.id) {
+            const link = document.createElement("a");
+            link.href = `#${header.id}`;
+            link.textContent = header.textContent;
+            link.style.display = "block";
+            toc.appendChild(link);
+          }
+        });
+      }
+
+      // Initialize
+      generateHeaderIds();
+      addLinksToTOC();
+    </script>
+  </body>
+</html>

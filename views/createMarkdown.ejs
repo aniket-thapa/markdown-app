@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Markdown File</title>
+    <script
+      src="https://kit.fontawesome.com/9ca9aa7819.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      /* Base CSS */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: auto;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 1200px;
+        box-sizing: border-box;
+        display: flex;
+        gap: 20px;
+      }
+
+      .form-section {
+        flex: 1;
+      }
+
+      .preview-section {
+        width: 400px;
+        flex-shrink: 0;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+
+      input[type="text"],
+      textarea {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+
+      textarea {
+        resize: none;
+        overflow-y: auto;
+        height: 315px;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      #preview {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        min-height: 400px;
+        max-height: 500px;
+        overflow-y: auto;
+        word-wrap: break-word;
+      }
+
+      /* GitHub Markdown styles */
+      @import url("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.css");
+      body {
+        background-color: #f6f8fa;
+      }
+      .markdown-body {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+      }
+      @media (max-width: 768px) {
+        .container {
+          height: 100%;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .toolbar {
+          flex-wrap: wrap;
+        }
+
+        .preview-section {
+          width: initial;
+        }
+      }
+    </style>
+
+    <style>
+      /* Toolbar container */
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 8px; /* Space between buttons */
+        margin-bottom: 10px;
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Toolbar buttons */
+      .toolbar button {
+        background: none;
+        border: none;
+        padding: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, border-radius 0.3s;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333; /* Default icon color */
+      }
+
+      .toolbar button:hover {
+        background-color: #e0e0e0;
+      }
+
+      .toolbar button:active {
+        background-color: #d0d0d0;
+      }
+
+      /* Dropdown menu */
+      .toolbar .dropdown {
+        position: relative;
+      }
+
+      .toolbar .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        top: 100%;
+        left: 0;
+        z-index: 1;
+      }
+
+      .toolbar .dropdown:hover .dropdown-content {
+        display: block;
+      }
+
+      .toolbar .dropdown-content button {
+        display: block;
+        padding: 8px;
+        background: none;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .toolbar .dropdown-content button:hover {
+        background-color: #f0f0f0;
+      }
+
+      /* GitHub-like Markdown styles */
+      .markdown-content {
+        line-height: 1.6;
+      }
+
+      .markdown-content h1 {
+        font-size: 24px;
+      }
+      .markdown-content h2 {
+        font-size: 20px;
+      }
+      .markdown-content h3 {
+        font-size: 18px;
+      }
+
+      .markdown-content h1,
+      .markdown-content h2,
+      .markdown-content h3,
+      .markdown-content h4,
+      .markdown-content h5,
+      .markdown-content h6 {
+        border-bottom: 1px solid #e1e4e8;
+        padding-bottom: 0.3em;
+        margin-bottom: 0.6em;
+        font-weight: 600;
+      }
+
+      .markdown-content code {
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        font-size: 85%;
+      }
+
+      .markdown-content pre code {
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        padding: 1em;
+        display: block;
+        overflow-x: auto;
+      }
+
+      .markdown-content blockquote {
+        border-left: 4px solid #dfe2e5;
+        margin: 0;
+        padding: 0.5em 1em;
+        color: #6a737d;
+      }
+
+      .markdown-content ul,
+      .markdown-content ol {
+        margin: 0;
+        padding-left: 1.5em;
+      }
+
+      .markdown-content li {
+        margin-bottom: 0.5em;
+      }
+
+      .markdown-content table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1em;
+      }
+
+      .markdown-content th,
+      .markdown-content td {
+        border: 1px solid #dfe2e5;
+        padding: 0.6em 1em;
+      }
+
+      .markdown-content th {
+        background-color: #f6f8fa;
+        font-weight: 600;
+      }
+
+      .markdown-content img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Link styles */
+      .markdown-content a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+
+      .markdown-content a:hover {
+        text-decoration: underline;
+      }
+
+      .markdown-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-section">
+        <h1>Create a Markdown File</h1>
+        <form action="/create" method="POST">
+          <div class="form-group">
+            <label for="filename">Filename (without extension):</label>
+            <input type="text" name="filename" id="filename" required />
+          </div>
+          <div class="form-group">
+            <label for="content">Markdown Content:</label>
+
+            <div class="toolbar">
+              <button
+                type="button"
+                title="Heading 1"
+                onclick="addMarkdown('# ', '')"
+              >
+                <i class="fas fa-heading"></i>
+              </button>
+              <button
+                type="button"
+                title="Heading 2"
+                onclick="addMarkdown('## ', '')"
+              >
+                <i class="fas fa-heading"></i
+                ><span style="font-size: 0.8em">2</span>
+              </button>
+              <button
+                type="button"
+                title="Heading 3"
+                onclick="addMarkdown('### ', '')"
+              >
+                <i class="fas fa-heading"></i
+                ><span style="font-size: 0.6em">3</span>
+              </button>
+              <button
+                type="button"
+                title="Bold"
+                onclick="addMarkdown('**', '**')"
+              >
+                <i class="fas fa-bold"></i>
+              </button>
+              <button
+                type="button"
+                title="Italic"
+                onclick="addMarkdown('*', '*')"
+              >
+                <i class="fas fa-italic"></i>
+              </button>
+              <div class="dropdown">
+                <button type="button" title="Link">
+                  <i class="fas fa-link"></i>
+                </button>
+                <div class="dropdown-content">
+                  <button
+                    type="button"
+                    onclick="addMarkdown('[Link text](URL)', '')"
+                  >
+                    Insert Link
+                  </button>
+                </div>
+              </div>
+              <div class="dropdown">
+                <button type="button" title="List">
+                  <i class="fas fa-list-ul"></i>
+                </button>
+                <div class="dropdown-content">
+                  <button type="button" onclick="addMarkdown('- ', '')">
+                    Unordered List
+                  </button>
+                  <button type="button" onclick="addMarkdown('1. ', '')">
+                    Ordered List
+                  </button>
+                </div>
+              </div>
+              <button
+                type="button"
+                title="Blockquote"
+                onclick="addMarkdown('> ', '')"
+              >
+                <i class="fas fa-quote-left"></i>
+              </button>
+              <button
+                type="button"
+                title="Image"
+                onclick="addMarkdown('![Alt text](Image URL)', '')"
+              >
+                <i class="fas fa-image"></i>
+              </button>
+              <div class="dropdown">
+                <button type="button" title="Code">
+                  <i class="fas fa-code"></i>
+                </button>
+                <div class="dropdown-content">
+                  <button type="button" onclick="addMarkdown('`', '`')">
+                    Inline Code
+                  </button>
+                  <button type="button" onclick="addMarkdown('```', '```')">
+                    Code Block
+                  </button>
+                </div>
+              </div>
+              <button
+                type="button"
+                title="Horizontal Rule"
+                onclick="addMarkdown('---', '')"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" title="Table" onclick="addTable()">
+                <i class="fas fa-table"></i>
+              </button>
+            </div>
+
+            <textarea name="content" id="content" rows="10" required></textarea>
+          </div>
+          <button type="submit">Create File</button>
+        </form>
+      </div>
+      <div id="preview" class="preview-section markdown-body markdown-content">
+        Preview will appear here...
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      function addMarkdown(startTag, endTag) {
+        const content = document.getElementById("content");
+        const startPos = content.selectionStart;
+        const endPos = content.selectionEnd;
+        const selectedText = content.value.substring(startPos, endPos);
+
+        content.value =
+          content.value.substring(0, startPos) +
+          startTag +
+          selectedText +
+          endTag +
+          content.value.substring(endPos);
+
+        updatePreview(); // Update the preview whenever the markdown is modified
+      }
+
+      function addTable() {
+        const table = `| Header 1 | Header 2 | Header 3 |\n| -------- | -------- | -------- |\n| Row 1 Col 1 | Row 1 Col 2 | Row 1 Col 3 |\n| Row 2 Col 1 | Row 2 Col 2 | Row 2 Col 3 |`;
+        const content = document.getElementById("content");
+        const startPos = content.selectionStart;
+
+        content.value =
+          content.value.substring(0, startPos) +
+          table +
+          content.value.substring(startPos);
+
+        updatePreview(); // Update the preview whenever the markdown is modified
+      }
+
+      function updatePreview() {
+        const input = document.getElementById("content").value;
+        const preview = document.getElementById("preview");
+        preview.innerHTML = marked.parse(input);
+      }
+
+      // Initial call to display any pre-existing content
+      updatePreview();
+
+      // Event listener for input changes
+      document
+        .getElementById("content")
+        .addEventListener("input", updatePreview);
+    </script>
+  </body>
+</html>
