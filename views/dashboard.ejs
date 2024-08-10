@@ -8,6 +8,7 @@
       src="https://kit.fontawesome.com/9ca9aa7819.js"
       crossorigin="anonymous"
     ></script>
+
     <style>
       /* Base styles */
       body {
@@ -250,6 +251,19 @@
         top: 15px;
         right: 20px;
       }
+      .view-markdown-li {
+        position: relative;
+      }
+      .view-markdown-li a {
+        min-width: 420px;
+      }
+      .view-markdown-li span {
+        color: #919090;
+        position: absolute;
+        right: 3px;
+        bottom: 3px;
+        font-size: 12px;
+      }
     </style>
   </head>
   <body>
@@ -285,7 +299,16 @@
       <ul>
         <% files.forEach(function(file) { %>
         <li>
-          <a href="/view/<%= file.shareableLink %>"><%= file.filename %></a>
+          <div class="view-markdown-li">
+            <a href="/view/<%= file.shareableLink %>"
+              ><%= file.filename %>
+              <span
+                ><%= new Date(file.date_of_creation).toLocaleString('en-IN', {
+                day: 'numeric', month: 'short', year: 'numeric', hour:
+                '2-digit', minute: '2-digit' }) %></span
+              >
+            </a>
+          </div>
 
           <button
             class="copy-button"
