@@ -1,11 +1,127 @@
-<h1>Register</h1>
-<form action="/register" method="POST">
-  <label for="username">Username:</label>
-  <input type="text" name="username" id="username" required />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Markdown Hub</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #eceff1;
+        color: #37474f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="password" required />
+      .register-container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+      }
 
-  <button type="submit">Register</button>
-</form>
-<a href="/login">Already have an account? Login here</a>
+      .register-container h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #263238;
+      }
+
+      .register-container form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .register-container label {
+        font-size: 14px;
+        margin-bottom: 5px;
+        color: #37474f;
+        align-self: flex-start;
+      }
+
+      .register-container input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #b0bec5;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      .register-container button {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, box-shadow 0.3s;
+      }
+
+      .register-container button:hover {
+        background-color: #0056b3;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .register-container a {
+        color: #007bff;
+        margin-top: 15px;
+        display: inline-block;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .register-container a:hover {
+        color: #0056b3;
+      }
+
+      .register-container .form-header {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #b0bec5;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        color: #37474f;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="register-container">
+      <h1>Register</h1>
+      <form action="/register" method="POST">
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Enter your username"
+          required
+        />
+
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter your password"
+          required
+        />
+
+        <button type="submit">Register</button>
+      </form>
+      <a href="/login">Already have an account? Login here</a>
+    </div>
+  </body>
+</html>
