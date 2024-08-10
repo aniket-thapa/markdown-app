@@ -34,7 +34,7 @@
         color: #333;
         text-align: center;
         font-weight: 500;
-        border-bottom: 2px solid #eee;
+        border-bottom: 2px solid #2f2f2f;
         padding-bottom: 10px;
         width: 100%;
       }
@@ -43,10 +43,10 @@
         margin: 5px;
         display: flex;
         flex-direction: column;
-        height: 150px;
       }
 
-      .create-div a {
+      .create-div a,
+      .upload-markdown-div {
         border: 1px solid #ddd;
         border-radius: 4px;
         padding: 10px;
@@ -76,16 +76,15 @@
         border: 1px solid #ddd;
         border-radius: 4px;
         padding: 10px;
-        margin: 15px;
-        width: 100%;
-        max-width: 400px;
         background-color: #fff;
         font-size: 16px;
         transition: border-color 0.3s;
       }
 
-      input[type="file"]:focus {
+      input[type="file"]:hover {
+        color: #007bff;
         border-color: #007bff;
+        background-color: #007bff0d;
       }
 
       .upload-form button {
@@ -103,7 +102,7 @@
 
       .upload-form button:hover {
         background-color: #0056b3;
-        transform: scale(1.05);
+        transform: scale(1.02);
       }
 
       /* List styles */
@@ -199,15 +198,15 @@
 
       /* Dark mode styles */
       body.dark-mode {
-        background-color: #333;
+        background-color: #212121;
         color: #ccc;
       }
 
       body.dark-mode h1 {
         color: #ccc;
       }
-
-      body.dark-mode .create-div a {
+      body.dark-mode .create-div a,
+      body.dark-mode .upload-markdown-div {
         border-color: #666;
         background-color: #555;
         color: #ccc;
@@ -218,9 +217,13 @@
         border-color: #0057b3cb;
       }
       body.dark-mode input[type="file"] {
-        border-color: #666;
+        border-color: #b3b3b3;
         background-color: #555;
         color: #ccc;
+      }
+      body.dark-mode input[type="file"]:hover {
+        color: white;
+        background-color: #4b4a4a;
       }
 
       body.dark-mode ul li a {
@@ -256,6 +259,7 @@
       </button>
       <h1>Dashboard</h1>
       <div class="create-div">
+        <h2>Create / Upload Markdowns:</h2>
         <a href="/create">Create Markdown File</a>
         <form
           class="upload-form"
@@ -263,14 +267,21 @@
           method="POST"
           enctype="multipart/form-data"
         >
-          <input type="file" name="markdown" accept=".md" required />
-          <button type="submit">Upload Markdown</button>
+          <div class="upload-markdown-div">
+            <label for="markdown">Upload Markdown File</label>
+            <input
+              type="file"
+              name="markdown"
+              id="markdown"
+              accept=".md"
+              required
+            />
+          </div>
+          <button type="submit">Upload</button>
         </form>
       </div>
-      <hr />
-
-      <hr />
-      <h2>View Uploads</h2>
+      <br /><br /><br />
+      <h2>View Markdowns:</h2>
       <ul>
         <% files.forEach(function(file) { %>
         <li>
