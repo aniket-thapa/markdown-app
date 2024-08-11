@@ -218,6 +218,51 @@
         text-decoration: none;
         color: #0366d6;
       }
+
+      /* Style the copy code block */
+
+      .markdown-content pre {
+        position: relative;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: transparent;
+        border: none;
+        color: #555555;
+        cursor: pointer;
+        font-size: 0.85rem;
+        padding: 2px;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+      }
+
+      .copy-btn:hover {
+        opacity: 1;
+      }
+
+      .copy-btn .tooltip {
+        visibility: hidden;
+        background-color: #3e3e3e9e;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 4px;
+        padding: 4px 8px;
+        position: absolute;
+        z-index: 1;
+        top: -4px;
+        right: 22px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 0.7rem;
+      }
+
+      .copy-btn:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
@@ -236,6 +281,48 @@
 
     <script src="/scripts/themeSwitcher.js"></script>
     <script>
+      // Copy Code Icon //
+      document.addEventListener("DOMContentLoaded", function () {
+        const codeBlocks = document.querySelectorAll(
+          ".markdown-content pre code"
+        );
+
+        codeBlocks.forEach((block) => {
+          // Create copy button
+          const copyButton = document.createElement("button");
+          copyButton.className = "copy-btn";
+          copyButton.innerHTML =
+            '<i class="fa-regular fa-clone"></i><span class="tooltip">Copy</span>';
+
+          // Append the button to the pre element
+          const pre = block.parentElement;
+          pre.style.position = "relative";
+          pre.appendChild(copyButton);
+
+          // Add copy functionality
+          copyButton.addEventListener("click", () => {
+            const text = block.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+              copyButton.querySelector(".tooltip").textContent = "Copied!";
+
+              const copyIcon = copyButton.querySelector("i");
+
+              copyIcon.classList.remove("fa-regular", "fa-clone");
+              copyIcon.classList.add("fa-solid", "fa-check");
+
+              copyButton.style.color = "green";
+
+              setTimeout(() => {
+                copyButton.querySelector(".tooltip").textContent = "Copy";
+                copyIcon.classList.add("fa-regular", "fa-clone");
+                copyIcon.classList.remove("fa-solid", "fa-check");
+                copyButton.style.color = "#555555";
+              }, 1500);
+            });
+          });
+        });
+      });
+
       // Function to generate IDs for headers
       function generateHeaderIds() {
         const headers = document.querySelectorAll(

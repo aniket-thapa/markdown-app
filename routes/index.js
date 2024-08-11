@@ -94,7 +94,7 @@ router.post("/create", async (req, res) => {
     });
     await newFile.save();
 
-    res.redirect(`/view/${randomString}`);
+    res.redirect("/dashboard");
   });
 });
 
@@ -109,7 +109,7 @@ router.post("/upload", upload.single("markdown"), (req, res) => {
 
   newFile
     .save()
-    .then(() => res.redirect(`/view/${randomString}`))
+    .then(() => res.redirect("/dashboard"))
     .catch((err) => res.status(500).send("Error saving file"));
 });
 
