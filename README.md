@@ -76,8 +76,8 @@ This web application allows users to register, log in, create, upload, view, and
 
    ```plaintext
    PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/markdown-app
-   SESSION_SECRET=your-session-secret
+   MONGODB_URI="mongodb://localhost:27017/markdown-app"
+   SESSION_SECRET="your-session-secret"
    ```
 
 4. **Start the Application:**
