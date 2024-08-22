@@ -27,15 +27,15 @@ This web application allows users to register, log in, create, upload, view, and
 
 ## Screenshots
 
-### Dashboard
+### Dashboard:
 
 ![Dashboard Screenshot (https://freeimage.host/i/dashboard.d0z6PYg)](https://iili.io/d0z6PYg.png)
 
-### Create Markdown File
+### Create Markdown File:
 
 ![Create Screenshot (https://freeimage.host/i/create.d0zSJvR)](https://iili.io/d0zSJvR.png)
 
-### View Files
+### View Files:
 
 ![View Screenshot (https://freeimage.host/i/view.d0zSdpp)](https://iili.io/d0zSdpp.png)
 
